@@ -468,6 +468,11 @@ return [
                     'asset' => true,
                     'location' => 'css/custom.css',
                 ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'js/custom.js',
+                ],
             ],
         ],
         'Datatables' => [
