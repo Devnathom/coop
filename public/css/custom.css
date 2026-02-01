@@ -1,93 +1,42 @@
-/* Sidebar always mini with popup menus */
-body.sidebar-mini .main-sidebar {
-    overflow: visible !important;
-}
-
-body.sidebar-mini .main-sidebar .nav-sidebar {
-    overflow: visible !important;
-}
-
-body.sidebar-mini .main-sidebar:not(.sidebar-no-expand) .nav-sidebar > .nav-item:hover > .nav-link > .right,
-body.sidebar-mini .main-sidebar:not(.sidebar-no-expand) .nav-sidebar > .nav-item:hover > .nav-treeview {
-    display: block !important;
-    position: absolute;
-    left: 100%;
-    top: 0;
-    width: 200px;
-    background: #343a40;
-    border-radius: 0 4px 4px 0;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-    z-index: 1050;
-}
-
-body.sidebar-mini .main-sidebar .nav-sidebar > .nav-item > .nav-treeview {
-    display: none !important;
-    position: absolute;
-    left: 100%;
-    top: 0;
-    min-width: 200px;
-    background: #343a40;
-    border-radius: 0 4px 4px 0;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-    padding: 5px 0;
-}
-
-body.sidebar-mini .main-sidebar .nav-sidebar > .nav-item:hover > .nav-treeview {
-    display: block !important;
-}
-
-body.sidebar-mini .main-sidebar .nav-sidebar > .nav-item {
+/* Popup submenu for sidebar-no-expand */
+.main-sidebar.sidebar-no-expand .nav-sidebar > .nav-item {
     position: relative;
 }
 
-body.sidebar-mini .main-sidebar .nav-sidebar .nav-treeview .nav-link {
-    padding: 8px 15px;
-    white-space: nowrap;
-}
-
-body.sidebar-mini .main-sidebar .nav-sidebar .nav-treeview .nav-link p {
-    display: inline !important;
-}
-
-/* Hide text in collapsed state */
-body.sidebar-mini.sidebar-collapse .main-sidebar .nav-sidebar .nav-link p,
-body.sidebar-mini.sidebar-collapse .main-sidebar .nav-sidebar .nav-header {
-    display: none !important;
-}
-
-/* Show icon only */
-body.sidebar-mini.sidebar-collapse .main-sidebar .nav-sidebar .nav-link {
-    text-align: center;
-}
-
-body.sidebar-mini.sidebar-collapse .main-sidebar .nav-sidebar .nav-link .nav-icon {
-    margin-right: 0;
-    font-size: 1.2rem;
-}
-
-/* Prevent sidebar from expanding on hover */
-body.sidebar-mini.sidebar-collapse .main-sidebar:hover {
-    width: 4.6rem !important;
-}
-
-body.sidebar-mini.sidebar-collapse .main-sidebar:hover .brand-text,
-body.sidebar-mini.sidebar-collapse .main-sidebar:hover .nav-sidebar .nav-link p,
-body.sidebar-mini.sidebar-collapse .main-sidebar:hover .nav-sidebar .nav-header {
-    display: none !important;
-}
-
-/* Tooltip style for menu items */
-body.sidebar-mini.sidebar-collapse .main-sidebar .nav-sidebar > .nav-item:hover::after {
-    content: attr(data-title);
+.main-sidebar.sidebar-no-expand .nav-sidebar > .nav-item > .nav-treeview {
+    display: none;
     position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 73px;
+    top: 0;
+    width: 220px;
     background: #343a40;
+    border-radius: 0 5px 5px 0;
+    box-shadow: 3px 3px 15px rgba(0,0,0,0.4);
+    padding: 10px 0;
+    z-index: 1080;
+}
+
+.main-sidebar.sidebar-no-expand .nav-sidebar > .nav-item:hover > .nav-treeview {
+    display: block;
+}
+
+.main-sidebar.sidebar-no-expand .nav-treeview .nav-link {
+    padding: 10px 20px;
+    color: #c2c7d0;
+}
+
+.main-sidebar.sidebar-no-expand .nav-treeview .nav-link:hover {
+    background: rgba(255,255,255,0.1);
     color: #fff;
-    padding: 5px 12px;
-    border-radius: 4px;
-    white-space: nowrap;
-    z-index: 1050;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.main-sidebar.sidebar-no-expand .nav-treeview .nav-link p {
+    display: inline !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-left: 10px;
+}
+
+.main-sidebar.sidebar-no-expand .nav-treeview .nav-icon {
+    font-size: 0.9rem;
 }
