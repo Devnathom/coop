@@ -79,7 +79,60 @@
         </table>
     </div>
     <div class="card-footer">
-        {{ $members->withQueryString()->links() }}
+        <div class="row">
+            <div class="col-md-8">
+                {{ $members->withQueryString()->links() }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Summary Section -->
+<div class="row">
+    <div class="col-lg-2 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ number_format($summary['total_members']) }}</h3>
+                <p>สมาชิกทั้งหมด</p>
+            </div>
+            <div class="icon"><i class="fas fa-users"></i></div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-6">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{ number_format($summary['active_members']) }}</h3>
+                <p>ใช้งาน</p>
+            </div>
+            <div class="icon"><i class="fas fa-user-check"></i></div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-6">
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>{{ number_format($summary['inactive_members']) }}</h3>
+                <p>ไม่ใช้งาน</p>
+            </div>
+            <div class="icon"><i class="fas fa-user-times"></i></div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-primary">
+            <div class="inner">
+                <h3>฿{{ number_format($summary['total_shares'], 2) }}</h3>
+                <p>รวมทุนเรือนหุ้น</p>
+            </div>
+            <div class="icon"><i class="fas fa-hand-holding-usd"></i></div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>฿{{ number_format($summary['total_purchases'], 2) }}</h3>
+                <p>รวมยอดซื้อสะสม</p>
+            </div>
+            <div class="icon"><i class="fas fa-shopping-cart"></i></div>
+        </div>
     </div>
 </div>
 @stop

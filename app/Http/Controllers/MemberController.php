@@ -25,7 +25,17 @@ class MemberController extends Controller
         }
 
         $members = $query->latest()->paginate(15);
-        return view('members.index', compact('members'));
+
+        // Summary data
+        $summary = [
+            'total_members' => Member::count(),
+            'active_members' => Member::where('is_active', true)->count(),
+            'inactive_members' => Member::where('is_active', false)->count(),
+            'total_shares' => Member::sum('share_amount'),
+            'total_purchases' => Member::sum('accumulated_purchase'),
+        ];
+
+        return view('members.index', compact('members', 'summary'));
     }
 
     public function create()
