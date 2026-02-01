@@ -30,7 +30,7 @@
                 <tr>
                     <th>รหัสสมาชิก</th>
                     <th>ชื่อ-นามสกุล</th>
-                    <th>เบอร์โทร</th>
+                    <th>ชั้น/ห้อง</th>
                     <th>วันที่สมัคร</th>
                     <th>หุ้น</th>
                     <th>ยอดซื้อสะสม</th>
@@ -43,7 +43,7 @@
                 <tr>
                     <td>{{ $member->member_code }}</td>
                     <td>{{ $member->name }}</td>
-                    <td>{{ $member->phone ?? '-' }}</td>
+                    <td>{{ $member->class_level ?? '-' }}{{ $member->room ? '/'.$member->room : '' }}</td>
                     <td>{{ $member->join_date->format('d/m/Y') }}</td>
                     <td class="text-info">฿{{ number_format($member->share_amount, 2) }}</td>
                     <td class="text-success">฿{{ number_format($member->accumulated_purchase, 2) }}</td>

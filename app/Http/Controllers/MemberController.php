@@ -47,15 +47,14 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'member_code' => 'required|string|max:20|unique:members',
             'name' => 'required|string|max:255',
-            'id_card' => 'nullable|string|size:13|unique:members',
-            'phone' => 'nullable|string|max:20',
+            'class_level' => 'nullable|string|max:10',
+            'room' => 'nullable|string|max:10',
             'email' => 'nullable|email|max:255',
-            'address' => 'nullable|string',
             'share_amount' => 'nullable|numeric|min:0',
         ]);
 
-        $validated['member_code'] = Member::generateMemberCode();
         $validated['join_date'] = now();
         $validated['share_amount'] = $validated['share_amount'] ?? 0;
 
@@ -82,11 +81,11 @@ class MemberController extends Controller
     public function update(Request $request, Member $member)
     {
         $validated = $request->validate([
+            'member_code' => 'required|string|max:20|unique:members,member_code,' . $member->id,
             'name' => 'required|string|max:255',
-            'id_card' => 'nullable|string|size:13|unique:members,id_card,' . $member->id,
-            'phone' => 'nullable|string|max:20',
+            'class_level' => 'nullable|string|max:10',
+            'room' => 'nullable|string|max:10',
             'email' => 'nullable|email|max:255',
-            'address' => 'nullable|string',
             'share_amount' => 'nullable|numeric|min:0',
             'is_active' => 'boolean',
         ]);
@@ -112,11 +111,63 @@ class MemberController extends Controller
             ->where(function($q) use ($term) {
                 $q->where('name', 'like', "%{$term}%")
                   ->orWhere('member_code', 'like', "%{$term}%")
-                  ->orWhere('phone', 'like', "%{$term}%");
+                  ->orWhere('class_level', 'like', "%{$term}%");
             })
             ->limit(10)
-            ->get(['id', 'member_code', 'name', 'phone']);
+            ->get(['id', 'member_code', 'name', 'class_level', 'room']);
 
         return response()->json($members);
+    }
+
+    // หน้าเลื่อนชั้นเรียน
+    public function promoteIndex()
+    {
+        $classLevels = Member::$classLevels;
+        $members = Member::where('is_active', true)
+            ->whereIn('class_level', Member::$classOrder)
+            ->orderBy('class_level')
+            ->orderBy('room')
+            ->get();
+
+        return view('members.promote', compact('members', 'classLevels'));
+    }
+
+    // เลื่อนชั้นสมาชิกทีละคน
+    public function promote(Member $member)
+    {
+        if ($member->promoteClass()) {
+            return response()->json(['success' => true, 'new_class' => $member->class_level]);
+        }
+        return response()->json(['success' => false, 'message' => 'ไม่สามารถเลื่อนชั้นได้']);
+    }
+
+    // เลื่อนชั้นทั้งหมด
+    public function promoteAll(Request $request)
+    {
+        $fromClass = $request->from_class;
+        $members = Member::where('is_active', true)
+            ->where('class_level', $fromClass)
+            ->get();
+
+        $promoted = 0;
+        foreach ($members as $member) {
+            if ($member->promoteClass()) {
+                $promoted++;
+            }
+        }
+
+        return redirect()->route('members.promote')
+            ->with('success', "เลื่อนชั้นสมาชิกจาก {$fromClass} จำนวน {$promoted} คน");
+    }
+
+    // สำเร็จการศึกษา (ปิดสถานะ ม.6)
+    public function graduate()
+    {
+        $graduated = Member::where('is_active', true)
+            ->where('class_level', 'ม.6')
+            ->update(['is_active' => false]);
+
+        return redirect()->route('members.promote')
+            ->with('success', "ปิดสถานะสมาชิกจบการศึกษา ม.6 จำนวน {$graduated} คน");
     }
 }

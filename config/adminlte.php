@@ -318,8 +318,24 @@ return [
         ],
         [
             'text' => 'สมาชิก',
-            'url' => 'members',
             'icon' => 'fas fa-fw fa-users',
+            'submenu' => [
+                [
+                    'text' => 'รายชื่อสมาชิก',
+                    'url' => 'members',
+                    'icon' => 'fas fa-fw fa-list',
+                ],
+                [
+                    'text' => 'เพิ่มสมาชิก',
+                    'url' => 'members/create',
+                    'icon' => 'fas fa-fw fa-user-plus',
+                ],
+                [
+                    'text' => 'เลื่อนชั้นเรียน',
+                    'url' => 'members/promote',
+                    'icon' => 'fas fa-fw fa-graduation-cap',
+                ],
+            ],
         ],
         [
             'text' => 'สินค้า',

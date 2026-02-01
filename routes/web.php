@@ -24,6 +24,10 @@ Route::middleware(['auth'])->group(function () {
 
     // Members
     Route::get('/members/search', [MemberController::class, 'search'])->name('members.search');
+    Route::get('/members/promote', [MemberController::class, 'promoteIndex'])->name('members.promote');
+    Route::post('/members/promote-all', [MemberController::class, 'promoteAll'])->name('members.promote-all');
+    Route::post('/members/graduate', [MemberController::class, 'graduate'])->name('members.graduate');
+    Route::post('/members/{member}/promote', [MemberController::class, 'promote'])->name('members.promote-one');
     Route::resource('members', MemberController::class);
 
     // Categories
