@@ -9,6 +9,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\FiscalYearController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SettingController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -56,4 +57,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/profit', [ReportController::class, 'profit'])->name('profit');
         Route::get('/stock', [ReportController::class, 'stock'])->name('stock');
     });
+
+    // Settings
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
+    Route::post('/settings/remove-logo', [SettingController::class, 'removeLogo'])->name('settings.remove-logo');
 });

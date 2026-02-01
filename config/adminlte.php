@@ -401,6 +401,12 @@ return [
             'url' => 'reports/stock',
             'icon' => 'fas fa-fw fa-clipboard-list',
         ],
+        ['header' => 'ระบบ'],
+        [
+            'text' => 'ตั้งค่าระบบ',
+            'url' => 'settings',
+            'icon' => 'fas fa-fw fa-cogs',
+        ],
     ],
 
     /*
